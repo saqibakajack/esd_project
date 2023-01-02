@@ -16,6 +16,12 @@ app.use(cors());
 
 app.use('/api/notifications', require('./routes/notification.route'));
 
+app.use((error, req, res, next) => {
+    res.status(500).send({
+        message: error.message
+    })
+})
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected to database!');
